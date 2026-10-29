@@ -2,7 +2,7 @@
 
 Ferramentas e agentes de IA que tiram o trabalho manual do caminho.
 
-**Página:** https://sigef-sp.github.io/portfolio/
+**Página:** https://pedrorcardoso1.github.io/portfolio/
 
 ## Projetos
 
