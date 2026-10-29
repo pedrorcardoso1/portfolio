@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pedro Rocha Cardoso</title>
+<meta name="description" content="Portfólio de Pedro Rocha Cardoso: ferramentas e agentes de IA para o setor público e um app pessoal construído com IA.">
+<meta property="og:title" content="Pedro Rocha Cardoso">
+<meta property="og:description" content="Ferramentas e agentes de IA que tiram o trabalho manual do caminho.">
+<meta property="og:image" content="tela-saude.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: caderno de bordo de projetos. Texto à esquerda, números reais como prova, pipelines como sequência. */
+  :root {
+    --papel: #F3F5F2;
+    --cartao: #FFFFFF;
+    --tinta: #15201C;
+    --tinta-2: #4C5A55;
+    --tinta-3: #7D8B86;
+    --linha: #DCE3DE;
+    --salvia: #2F7A4C;
+    --salvia-fundo: #E1EEE5;
+    --ardosia: #1F6E99;
+    --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+    --texto: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --papel: #0F1613; --cartao: #17211D; --tinta: #E7EEEB; --tinta-2: #A9B8B2; --tinta-3: #74857E;
+      --linha: #26332E; --salvia: #7CC596; --salvia-fundo: #1D3027; --ardosia: #6DB3DB; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --papel: #0F1613; --cartao: #17211D; --tinta: #E7EEEB; --tinta-2: #A9B8B2; --tinta-3: #74857E;
+    --linha: #26332E; --salvia: #7CC596; --salvia-fundo: #1D3027; --ardosia: #6DB3DB; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--papel); color: var(--tinta); font-family: var(--texto); font-size: 16px; line-height: 1.6; margin: 0; }
+  .pagina { max-width: 1080px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 64px; display: grid; gap: 96px; }
+  h1, h2, h3, h4 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+  p { margin: 0; max-width: 66ch; color: var(--tinta-2); }
+  strong { color: var(--tinta); font-weight: 600; }
+  a { color: var(--ardosia); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--ardosia); outline-offset: 3px; border-radius: 4px; }
+  .rotulo { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--salvia); }
+  section { display: grid; gap: 28px; scroll-margin-top: 24px; }
+  section > header { display: grid; gap: 10px; }
+  h2 { font-size: clamp(30px, 4.4vw, 44px); font-weight: 800; line-height: 1.08; }
+  h3 { font-size: 21px; font-weight: 700; }
+  .bloco { display: grid; gap: 14px; }
+  .subrotulo { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tinta-3); }
+
+  /* ---------- Abertura ---------- */
+  .abertura { display: grid; gap: 22px; }
+  .abertura h1 { font-size: clamp(40px, 6.6vw, 72px); font-weight: 800; line-height: 1.0; max-width: 16ch; }
+  .abertura h1 em { font-style: normal; color: var(--salvia); }
+  .abertura .lead { font-size: 18px; }
+  .numeros { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+  .numeros div { padding: 16px 12px 16px 0; display: grid; gap: 2px; align-content: start; }
+  .numeros div + div { padding-left: 16px; border-left: 1px solid var(--linha); }
+  .numeros b { font-family: var(--display); font-size: 32px; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .numeros span { font-size: 13px; color: var(--tinta-3); line-height: 1.35; }
+
+  .indice { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .indice a { display: grid; gap: 4px; padding: 16px; border-radius: 16px; background: var(--cartao); border: 1px solid var(--linha); text-decoration: none; color: var(--tinta); }
+  .indice a:hover { border-color: var(--salvia); }
+  .indice .tipo { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tinta-3); }
+  .indice b { font-family: var(--display); font-size: 17px; line-height: 1.25; }
+
+  /* ---------- Cabeçalho de projeto ---------- */
+  .projeto-cab { display: grid; gap: 12px; border-top: 2px solid var(--tinta); padding-top: 18px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .meta span { font-family: var(--mono); font-size: 12px; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--linha); color: var(--tinta-2); }
+  .meta span.destaque { border-color: var(--salvia); color: var(--salvia); background: var(--salvia-fundo); }
+
+  .duas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+  ul.lista { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--tinta-2); }
+
+  /* Pipeline: sequência real de etapas */
+  .pipeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; counter-reset: etapa; }
+  .pipeline li { counter-increment: etapa; display: grid; gap: 4px; align-content: start; padding: 14px; border-radius: 14px; background: var(--cartao); border: 1px solid var(--linha); }
+  .pipeline li::before { content: counter(etapa); font-family: var(--mono); font-size: 12px; color: var(--salvia); }
+  .pipeline b { font-family: var(--display); font-size: 16px; }
+  .pipeline span { font-size: 13px; color: var(--tinta-2); line-height: 1.45; }
+  .pipeline .ia { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 4px; background: var(--salvia-fundo); color: var(--salvia); margin-left: 6px; vertical-align: 2px; }
+
+  .metricas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .metricas div { padding: 18px; border-radius: 16px; background: var(--salvia-fundo); display: grid; gap: 4px; }
+  .metricas b { font-family: var(--display); font-size: 34px; font-weight: 800; line-height: 1; color: var(--salvia); font-variant-numeric: tabular-nums; }
+  .metricas span { font-size: 14px; color: var(--tinta-2); }
+
+  .tabela { overflow-x: auto; border: 1px solid var(--linha); border-radius: 16px; background: var(--cartao); }
+  table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 15px; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--linha); vertical-align: top; }
+  th { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tinta-3); font-weight: 500; }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { color: var(--tinta-3); }
+
+  .regras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .regras div { padding: 12px 14px; border-left: 3px solid var(--salvia); background: var(--cartao); border-radius: 0 12px 12px 0; font-size: 15px; color: var(--tinta-2); }
+  .nota { font-family: var(--mono); font-size: 12px; color: var(--tinta-3); }
+
+  .ferramentas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .ferramenta { background: var(--cartao); border: 1px solid var(--linha); border-radius: 18px; padding: 22px; display: grid; gap: 10px; align-content: start; }
+  .link-saida { font-weight: 600; text-decoration: none; }
+  .link-saida::after { content: ' ↗'; }
+
+  /* ---------- Central ---------- */
+  .telas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .tela { display: grid; gap: 8px; align-content: start; }
+  .tela img { width: 100%; border-radius: 18px; border: 1px solid var(--linha); aspect-ratio: 520 / 760; object-fit: cover; object-position: top; background: var(--cartao); }
+  .tela b { font-family: var(--display); font-size: 17px; }
+  .tela span { font-size: 13px; color: var(--tinta-2); line-height: 1.45; }
+  .diagrama { background: var(--cartao); border: 1px solid var(--linha); border-radius: 18px; padding: 20px; overflow-x: auto; }
+  .diagrama pre { margin: 0; min-width: 620px; }
+  .casos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .caso { background: var(--cartao); border: 1px solid var(--linha); border-radius: 16px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+  .caso b { font-family: var(--display); font-size: 16px; }
+  .caso span { font-size: 14px; color: var(--tinta-2); }
+  code { font-family: var(--mono); font-size: 13px; background: var(--salvia-fundo); padding: 1px 5px; border-radius: 4px; color: var(--tinta); }
+
+  /* ---------- Princípios ---------- */
+  .principios { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 28px; }
+  .principios div { display: grid; gap: 6px; align-content: start; padding-top: 12px; border-top: 1px solid var(--linha); }
+  .principios b { font-family: var(--display); font-size: 18px; }
+  .principios span { font-size: 15px; color: var(--tinta-2); }
+
+  .stack { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+  .stack ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+  .stack li { font-size: 15px; padding-bottom: 6px; border-bottom: 1px solid var(--linha); }
+
+  footer { border-top: 1px solid var(--linha); padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 14px; color: var(--tinta-3); }
+
+  @media (max-width: 900px) {
+    .numeros, .indice { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .numeros div:nth-child(3) { border-left: 0; padding-left: 0; }
+    .numeros div:nth-child(n+3) { border-top: 1px solid var(--linha); }
+    .pipeline, .telas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .duas, .ferramentas, .casos, .regras { grid-template-columns: minmax(0, 1fr); }
+    .principios, .stack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .metricas { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .pagina { gap: 72px; padding-block: 24px 48px; }
+    .indice, .pipeline, .principios, .stack { grid-template-columns: minmax(0, 1fr); }
+    .telas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  }
+</style>
+<style>body { margin: 0; } img { max-width: 100%; }</style>
+</head>
+<body>
+<main class="pagina">
+
+  <!-- ===================== ABERTURA ===================== -->
+  <section class="abertura" aria-labelledby="titulo">
+    <span class="rotulo">Pedro Rocha Cardoso · consultoria para o setor público</span>
+    <h1 id="titulo">Construo ferramentas com <em>IA</em> que tiram o trabalho manual do caminho.</h1>
+    <p class="lead">Trabalho com propostas e projetos para o setor público. Uso agentes de IA para transformar acervos e rotinas que dependiam de memória e retrabalho em bibliotecas organizadas, painéis que se atualizam e ferramentas que qualquer pessoa da equipe consegue usar. Sempre com validação: a IA propõe, eu confiro e decido.</p>
+    <div class="numeros" role="list">
+      <div role="listitem"><b>~1.200</b><span>propostas lidas e classificadas por agentes de IA</span></div>
+      <div role="listitem"><b>113</b><span>decks de abordagem consolidados a partir de 40 mil arquivos</span></div>
+      <div role="listitem"><b>12 de 12</b><span>editais reais com a abordagem certa no top 3 do localizador</span></div>
+      <div role="listitem"><b>9</b><span>fontes de dados integradas no meu app pessoal</span></div>
+    </div>
+    <nav class="indice" aria-label="Projetos">
+      <a href="#biblioteca"><span class="tipo">Trabalho · agentes de IA</span><b>Biblioteca de Abordagens com IA</b></a>
+      <a href="#semanal"><span class="tipo">Trabalho · cliente público</span><b>Acompanhamento semanal de implantação</b></a>
+      <a href="#programacao"><span class="tipo">Trabalho · ferramentas com IA</span><b>Programação Financeira</b></a>
+      <a href="#central"><span class="tipo">Pessoal · app</span><b>Central, meu app de rotina</b></a>
+    </nav>
+  </section>
+
+  <!-- ===================== BIBLIOTECA DE ABORDAGENS ===================== -->
+  <section id="biblioteca" aria-labelledby="t-biblioteca">
+    <div class="projeto-cab">
+      <span class="rotulo">Projeto 1 · área de propostas para o setor público</span>
+      <h2 id="t-biblioteca">Biblioteca de Abordagens com IA</h2>
+      <p>Dez anos de propostas comerciais espalhadas no OneDrive viraram uma biblioteca organizada e pesquisável. Agentes de IA leram, classificaram, recortaram e consolidaram milhares de slides; uma ferramenta de busca recomenda as abordagens certas a partir do edital do cliente.</p>
+      <div class="meta"><span class="destaque">Claude Code · workflows multiagente</span><span>Python</span><span>PowerPoint COM</span><span>BM25 + OCR no navegador</span></div>
+    </div>
+
+    <div class="duas">
+      <div class="bloco">
+        <span class="subrotulo">O problema</span>
+        <p>Cada proposta nova começava procurando "aquela proposta que tinha um slide bom de gestão de riscos" em pastas antigas. O conhecimento existia, mas só achava quem lembrava onde ele estava.</p>
+      </div>
+      <ul class="lista">
+        <li><strong>6 pastas-raiz</strong>, <strong>266 clientes e leads</strong>, mais de <strong>40 mil arquivos</strong></li>
+        <li><strong>5.504 PowerPoints (108 GB)</strong>, quase todos só na nuvem</li>
+        <li>Versões repetidas, decks institucionais e de preço misturados com conteúdo técnico</li>
+        <li>Nenhum índice</li>
+      </ul>
+    </div>
+
+    <div class="bloco">
+      <span class="subrotulo">O pipeline, de ponta a ponta</span>
+      <ol class="pipeline">
+        <li><b>Inventário</b><span>Metadados de pastas, versões e arquivos na nuvem, sem baixar nada.</span></li>
+        <li><b>Extração</b><span>Texto de cada slide (python-pptx) e imagem renderizada, para a IA "ver" diagramas.</span></li>
+        <li><b>Identificação<i class="ia">IA</i></b><span>Um agente por proposta aponta quais slides formam uma abordagem metodológica, em JSON com schema.</span></li>
+        <li><b>Agrupamento</b><span>Abordagens equivalentes de clientes diferentes juntas, por similaridade Jaccard, sem custo de IA.</span></li>
+        <li><b>Recorte</b><span>Slides copiados para a biblioteca, com rastreabilidade até pasta, arquivo e slide de origem.</span></li>
+        <li><b>Taxonomia<i class="ia">IA</i></b><span>Reorganização MECE em 15 temas, revisada em planilha antes de aplicar.</span></li>
+        <li><b>Consolidação<i class="ia">IA</i></b><span>Um deck por abordagem, com a versão mais completa, auditado por imagem contra o original.</span></li>
+        <li><b>Nova identidade visual</b><span>Decks adaptados à nova marca, com checagem de contraste e texto vazando.</span></li>
+      </ol>
+    </div>
+
+    <div class="duas">
+      <div class="bloco">
+        <span class="subrotulo">Orquestração dos agentes</span>
+        <p>Um agente por proposta, em paralelo, em lotes de cerca de 40, com retomada automática quando um agente falhava ou batia no limite de uso. Foram <strong>27 lotes de Fazenda e 4 de Governo</strong>, cerca de <strong>1.200 propostas</strong>, gerando <strong>4.115 recortes em 1.471 pastas</strong>, com backups antes de cada lote e scripts para desfazer qualquer passo.</p>
+      </div>
+      <div class="regras" aria-label="Regras dadas aos agentes">
+        <div>Nunca alterar um arquivo original: tudo é cópia.</div>
+        <div>Nunca inventar conteúdo que não está na proposta.</div>
+        <div>Não tratar dois conteúdos como iguais só pelo título; julgar pela lógica.</div>
+        <div>Na dúvida real, marcar "REVISÃO HUMANA NECESSÁRIA".</div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <span class="subrotulo">Localizador de Abordagens</span>
+      <p>Uma página HTML de arquivo único, sem instalação: a pessoa arrasta o PDF do edital, da Manifestação de Interesse ou do Termo de Referência e recebe as abordagens mais aderentes. Busca por relevância BM25 com expressões de duas palavras, filtro do texto padrão de editais de organismos multilaterais, OCR no navegador para editais escaneados e, para cada resultado, os termos em comum, os slides mais aderentes, as páginas do edital onde o tema aparece e o link para a pasta no SharePoint. <strong>O PDF é lido no próprio navegador; nada é enviado para fora.</strong></p>
+    </div>
+
+    <div class="metricas" aria-label="Validação com 12 editais reais">
+      <div><b>11 de 12</b><span>editais reais com a primeira sugestão correta</span></div>
+      <div><b>0,96</b><span>MRR, comparando com as abordagens que a equipe de fato usou</span></div>
+      <div><b>0,6–4 s</b><span>tempo de resposta por PDF</span></div>
+    </div>
+
+    <div class="tabela">
+      <table>
+        <thead><tr><th>Antes</th><th>Depois</th></tr></thead>
+        <tbody>
+          <tr><td>Conhecimento espalhado em 40 mil arquivos</td><td>113 decks organizados em 15 temas</td></tr>
+          <tr><td>Busca dependia da memória de quem fez a proposta</td><td>Busca a partir do próprio edital, em segundos</td></tr>
+          <tr><td>Slides copiados à mão de propostas antigas</td><td>Deck pronto, na versão mais completa, com origem rastreável</td></tr>
+          <tr><td>Retrabalho a cada nova proposta</td><td>Base reutilizável por toda a área</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">O conteúdo das propostas é confidencial. Aqui estão o problema, a arquitetura e os resultados.</p>
+  </section>
+
+  <!-- ===================== ACOMPANHAMENTO SEMANAL ===================== -->
+  <section id="semanal" aria-labelledby="t-semanal">
+    <div class="projeto-cab">
+      <span class="rotulo">Projeto 2 · implantação de sistema em cliente do setor público</span>
+      <h2 id="t-semanal">Acompanhamento semanal da implantação</h2>
+      <p>Toda semana o time apresentava o andamento: itens do backlog, mudanças solicitadas e em que etapa de homologação cada uma estava. A atualização era manual: abrir a planilha de backlog, conferir o cronograma e repintar as tabelas da apresentação, item por item.</p>
+      <div class="meta"><span class="destaque">Claude (IA generativa)</span><span>HTML/JS de arquivo único</span><span>Leitura de .xlsx no navegador</span></div>
+    </div>
+
+    <div class="ferramentas">
+      <article class="ferramenta">
+        <h3>Relatório semanal atualizado com IA</h3>
+        <p>Eu enviava a planilha de backlog e a apresentação da semana anterior e descrevia em linguagem natural o que mudou. A IA lia as abas, cruzava cada item do backlog com a mudança correspondente e reconstruía as tabelas.</p>
+        <ul class="lista">
+          <li>Duas visões que ficavam separadas viraram uma tabela única de status por ambiente</li>
+          <li>Nova coluna ligando cada item do backlog à sua mudança</li>
+          <li>Itens atrasados destacados em cor automaticamente, com legenda</li>
+        </ul>
+        <p><strong>Validação:</strong> quando a pré-visualização não era confiável, a conferência era feita direto na estrutura do arquivo, célula por célula. Itens que dependiam de interpretação vinham sinalizados para minha revisão, em vez de preenchidos no chute.</p>
+      </article>
+      <article class="ferramenta">
+        <h3>Painel de Andamento Semanal</h3>
+        <p>Um painel web que lê a planilha de backlog direto no navegador e organiza o projeto em abas: andamento da semana, cronograma e marcos da fase, backlog de infraestrutura, RCMs, rotinas contábeis, itens sem cronograma e responsáveis.</p>
+        <p>O fluxo <strong>"Atualizar a semana"</strong> segue a pauta da reunião: dados da semana, ocorrências, decisões, agenda da próxima reunião, pontos de atenção e backlog atualizado. Cada reunião fica registrada no painel, e o histórico do projeto deixa de depender de atas soltas.</p>
+      </article>
+    </div>
+    <p>Resultado: um relatório semanal mais rápido de produzir, mais completo para a gestão e com menos risco de erro manual.</p>
+  </section>
+
+  <!-- ===================== PROGRAMAÇÃO FINANCEIRA ===================== -->
+  <section id="programacao" aria-labelledby="t-programacao">
+    <div class="projeto-cab">
+      <span class="rotulo">Projeto 3 · gestão de caixa de estados</span>
+      <h2 id="t-programacao">Programação Financeira</h2>
+      <p>Duas ferramentas web para apoiar estados na programação financeira, construídas com apoio de IA e publicadas como páginas de arquivo único, que funcionam direto no navegador.</p>
+      <div class="meta"><span class="destaque">Construídas com apoio de IA</span><span>HTML/JS de arquivo único</span><span>GitHub Pages</span></div>
+    </div>
+    <div class="ferramentas">
+      <article class="ferramenta">
+        <h3>Diagnóstico de Maturidade</h3>
+        <p>Autoavaliação que posiciona o estado em um de cinco níveis de maturidade, a partir de critérios da literatura internacional de gestão de caixa pública. São 20 perguntas em cinco dimensões: metodologia e previsão, dados e tecnologia, gestão de liquidez, governança e processos, cultura e conhecimento. O nível geral é o da dimensão mais frágil.</p>
+        <a class="link-saida" href="https://sigef-sp.github.io/Programa-o-Financeira-Diagn-stico-de-Maturidade/" target="_blank" rel="noopener">Abrir o diagnóstico</a>
+      </article>
+      <article class="ferramenta">
+        <h3>Simulador de Limites</h3>
+        <p>Responde, em quatro passos, quanto o estado pode gastar sem furar a meta: a restrição fiscal (teto = receita primária − meta de resultado primário da LDO), a restrição financeira (há caixa para pagar no ritmo planejado?), os limites por recorte (Tesouro, com e sem RPPS) e as curvas de liberação ao longo do ano.</p>
+        <a class="link-saida" href="https://sigef-sp.github.io/Programa-o-Financeira-Simulador-de-Limites/" target="_blank" rel="noopener">Abrir o simulador</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== CENTRAL ===================== -->
+  <section id="central" aria-labelledby="t-central">
+    <div class="projeto-cab">
+      <span class="rotulo">Projeto 4 · pessoal</span>
+      <h2 id="t-central">Central, meu app de rotina construído com IA em 15 dias</h2>
+      <p>Finanças, saúde, treinos, leitura e agenda estavam em mais de dez aplicativos que não conversam. Construí com o Claude Code um app que junta tudo, atualiza sozinho e responde perguntas que cruzam essas fontes: dormi bem antes dos meus melhores treinos? Quanto a bolsa me custou ontem, e em qual classe?</p>
+      <div class="meta"><span class="destaque">Claude Code</span><span>Google Apps Script</span><span>Python + GitHub Actions</span><span>Open Finance · OAuth</span><span>18 versões publicadas</span></div>
+    </div>
+
+    <div class="telas">
+      <div class="tela"><img src="tela-inicio.png" alt="Tela Início: meta semanal de corrida, agenda e último treino" loading="lazy"><b>Início</b><span>O que importa agora: meta da semana, agenda e último treino.</span></div>
+      <div class="tela"><img src="tela-saude.png" alt="Tela Saúde: veredito de recuperação com indicadores do Garmin" loading="lazy"><b>Saúde</b><span>Recuperação a partir de HRV, sono e Body Battery; treinos da assessoria; corridas com mapa.</span></div>
+      <div class="tela"><img src="tela-financas.png" alt="Tela Finanças: carteira por classe e evolução" loading="lazy"><b>Finanças</b><span>Open Finance, evolução da carteira, dividendos pelo método Bazin e simulador.</span></div>
+      <div class="tela"><img src="tela-lazer.png" alt="Tela Lazer: livro em leitura com cronômetro" loading="lazy"><b>Lazer</b><span>Cronômetro de leitura, código de barras pela câmera e filmes do Letterboxd.</span></div>
+    </div>
+    <p class="nota">Telas com dados fictícios.</p>
+
+    <div class="diagrama">
+<pre class="mermaid">
+flowchart LR
+  subgraph Fontes
+    A[Google Agenda]
+    B[Strava · OAuth]
+    C[Pluggy · Open Finance]
+    D[Yahoo Finance]
+    E[Banco Central · CDI]
+    F[Letterboxd · RSS]
+    G[Google Books / Open Library]
+  end
+  H[Garmin Connect] --> I[Python no GitHub Actions<br/>4x por dia]
+  I --> J[Receptor protegido<br/>por segredo]
+  A & B & C & D & E & F & G --> K[Apps Script<br/>8 rotinas agendadas]
+  J --> L[(Google Planilhas)]
+  K --> L
+  L --> M[Web app no iPhone]
+</pre>
+    </div>
+
+    <div class="bloco">
+      <span class="subrotulo">Problemas reais resolvidos</span>
+      <div class="casos">
+        <div class="caso"><b>Uma aba inteira parou de carregar em produção</b><span>Criei um aviso de erros no próprio app, que apontou a linha exata: o Apps Script remove <code>//</code> como comentário até dentro de endereços <code>https://</code>. Corrigi e criei um teste que simula essa remoção antes de cada publicação.</span></div>
+        <div class="caso"><b>Renda fixa sem histórico de preço</b><span>Reconstruí a evolução dos CDBs de trás para frente com o CDI de cada dia útil (API do Banco Central) e a taxa de cada aplicação.</span></div>
+        <div class="caso"><b>Gastos de cartão contados duas vezes</b><span>Identifiquei que o "saldo em atraso" repetia a fatura anterior; filtrei esses lançamentos e passei a ler as faturas fechadas direto da API.</span></div>
+        <div class="caso"><b>Dividendos atrás de um paywall</b><span>O diagnóstico do app mostrou o erro exato da API; troquei de fonte e conferi os números em uma ação conhecida antes de publicar.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COMO TRABALHO COM IA ===================== -->
+  <section aria-labelledby="t-principios">
+    <header>
+      <span class="rotulo">Como trabalho com IA</span>
+      <h2 id="t-principios">O que se repete em todos os projetos.</h2>
+    </header>
+    <div class="principios">
+      <div><b>IA onde precisa de entendimento</b><span>Ler e julgar conteúdo fica com os agentes. Inventário, agrupamento, recorte e busca são scripts locais: rápidos, previsíveis e sem custo de IA.</span></div>
+      <div><b>Saída estruturada e conferida</b><span>Agentes devolvem JSON validado por schema, e eu confiro o resultado no arquivo gerado, não só o "OK" do agente.</span></div>
+      <div><b>Humano no circuito</b><span>A IA propõe e eu decido: taxonomia em planilha de revisão, casos ambíguos marcados para revisão, nada preenchido no chute.</span></div>
+      <div><b>Nada irreversível</b><span>Originais nunca são tocados, há backup antes de cada lote e script para desfazer cada passo.</span></div>
+      <div><b>Validação com métrica</b><span>O localizador foi medido contra o que a equipe realmente usou (MRR 0,96), não só "parece funcionar".</span></div>
+      <div><b>Continuidade entre sessões</b><span>Documento de handoff com estado, decisões e erros conhecidos, para que qualquer nova sessão de IA, ou outra pessoa, continue sem perder contexto.</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-stack">
+    <header>
+      <span class="rotulo">Ferramentas</span>
+      <h2 id="t-stack">O que uso.</h2>
+    </header>
+    <div class="stack">
+      <div><span class="subrotulo">IA</span><ul><li>Claude Code: agentes, subagentes e workflows multiagente</li><li>Claude (IA generativa) para documentos e análise</li><li>Saídas estruturadas com JSON Schema</li></ul></div>
+      <div><span class="subrotulo">Código</span><ul><li>Python (python-pptx, automação)</li><li>JavaScript, HTML e CSS</li><li>Google Apps Script</li><li>PowerShell e PowerPoint COM</li></ul></div>
+      <div><span class="subrotulo">Dados e busca</span><ul><li>BM25, similaridade Jaccard</li><li>pdf.js e OCR com tesseract.js</li><li>Leitura de .xlsx no navegador</li><li>Visualização de dados em SVG</li></ul></div>
+      <div><span class="subrotulo">Integração e entrega</span><ul><li>APIs REST, OAuth 2.0, Open Finance</li><li>GitHub Actions e GitHub Pages</li><li>OneDrive e SharePoint</li></ul></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Pedro Rocha Cardoso</span>
+    <span>Conteúdos de clientes descritos sem dados confidenciais. Telas do app pessoal com dados fictícios.</span>
+  </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'neutral' });
+</script>
+</body>
+</html>
